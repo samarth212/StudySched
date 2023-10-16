@@ -78,7 +78,7 @@ struct EditAssignment: View {
                             
                             let formatter = DateFormatter()
                             let string = data.eventDataList[data.indexToEdit]["data"]!["start"]
-                            formatter.dateFormat = "MM/dd/yyyy, h:mm a"
+                            formatter.dateFormat = "EEEE, MMMM d, yyyy 'at' h:mm a"
 
                             data.eventStart = formatter.date(from: string ?? "none") ?? Date()
                             
@@ -97,7 +97,7 @@ struct EditAssignment: View {
                             
                             let formatter2 = DateFormatter()
                             let string2 = data.eventDataList[data.indexToEdit]["data"]!["end"]
-                            formatter2.dateFormat = "MM/dd/yyyy, h:mm a"
+                            formatter2.dateFormat = "EEEE, MMMM d, yyyy 'at' h:mm a"
 
                             data.eventEnd = formatter2.date(from: string2 ?? "none") ?? Date()+86400
                             

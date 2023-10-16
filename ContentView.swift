@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Foundation
 
 
 
@@ -14,6 +15,8 @@ struct ContentView: View {
     @EnvironmentObject var data: MyData
     @State public var showAddAssignments: Bool = false
     @State public var showAddConflicts: Bool = false
+    let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+
     
     
     
@@ -82,11 +85,43 @@ struct ContentView: View {
                     .padding(.leading)
                     
                     
-                    //My Schedule Text
-                    HStack{
+                    //My Schedule Text and Refresh
+                    HStack(spacing: 20){
                         Text("My Schedule")
                             .font(.title)
                             .fontWeight(.semibold)
+                            .onReceive(timer){ _ in
+                                let dateFormatter = DateFormatter()
+                                dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
+                                if !data.eventDataList.isEmpty{
+                                    
+                                    for index in data.eventDataList.indices{
+                                        
+                                        if Date() > dateFormatter.date(from: data.eventDataList[index]["data"]!["end"]!)!{
+                                            
+                                            
+                                            data.eventDataList.remove(at: index)
+                                            print(data.eventDataList)
+                                            
+                                            
+                                        }//if
+                                        
+   
+                                    }//for loop
+                                    
+                                    
+                                }//if empty
+                                
+
+                                
+                                
+                                
+                            }//on recieve
+                         
+                        
+                        
+                
+
                         Spacer()
                         
                     }//hstack title

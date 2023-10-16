@@ -6,14 +6,22 @@
 //
 
 import SwiftUI
+import BackgroundTasks
 
 @main
 struct TM_DemoApp: App {
-    @StateObject var data = MyData()
+    @StateObject var _data = MyData()
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
-                .environmentObject(data)
+                .environmentObject(_data)
         }
     }
+    
+    
+    
+    
+  
+    
+    
 }
