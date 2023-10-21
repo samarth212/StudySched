@@ -18,6 +18,8 @@ struct ContentView: View {
     let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     @State private var showEndTime: Bool = false
     @State private var deleteAssignment: Bool = false
+    @State private var timerOn: Bool = true
+  
 
     
     
@@ -95,16 +97,21 @@ struct ContentView: View {
                             .onReceive(timer){ _ in
                                 let dateFormatter = DateFormatter()
                                 dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
-                                if !data.eventDataList.isEmpty{
+                                if !data.eventDataList.isEmpty && timerOn{
+                                    
+                                    print("pluh")
+                                    
                                     var indicesToRemove: [Int] = []
                                     
-
-                                    
                                     for index in data.eventDataList.indices{
+                                        
+                                        
                                         
                                         if Date() > dateFormatter.date(from: data.eventDataList[index]["data"]!["end"]!)!{
                                             
                                             showEndTime.toggle()
+                                            timerOn = false
+                                            
                                             if deleteAssignment{
                                                 indicesToRemove.append(index)
                                                 
@@ -120,11 +127,13 @@ struct ContentView: View {
                                     }//for loop
                                     if deleteAssignment{
                                         
+                                        
                                         for index in indicesToRemove.reversed(){
                                             data.eventDataList.remove(at: index)
                                         }//for loop after orginal one
                                         
                                         print(data.eventDataList)
+                                        
 
                                     }//if deleting
                                     
@@ -140,10 +149,16 @@ struct ContentView: View {
                                 Alert(
                                     title: Text("Warning"),
                                     message: Text("This assignment ended"),
-                                    primaryButton: .default(Text("Extend due date")),
+                                    primaryButton: .default(Text("Extend due date")){
+                                        timerOn = true
+
+                                    },
                                     secondaryButton: .destructive(Text("Delete")){
                                         
-                                        deleteAssignment.toggle()
+                                        deleteAssignment = true
+                                        timerOn = true
+
+                                       
                                     
                                     }//delete
                                 )//alert
