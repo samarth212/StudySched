@@ -19,6 +19,11 @@ struct ContentView: View {
     @State private var showEndTime: Bool = false
     @State private var deleteAssignment: Bool = false
     @State private var timerOn: Bool = true
+    
+    //@State var indicesToRemove: [Int] = []
+    @State var indexToRemove: Int = -1
+    @State var assignmentPassedName: String = ""
+
   
 
     
@@ -97,29 +102,33 @@ struct ContentView: View {
                             .onReceive(timer){ _ in
                                 let dateFormatter = DateFormatter()
                                 dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
+                                
                                 if !data.eventDataList.isEmpty && timerOn{
                                     
-                                    print("pluh")
-                                    
-                                    var indicesToRemove: [Int] = []
-                                    
+
+
                                     for index in data.eventDataList.indices{
                                         
                                         
                                         
                                         if Date() > dateFormatter.date(from: data.eventDataList[index]["data"]!["end"]!)!{
                                             
-                                            showEndTime.toggle()
-                                            timerOn = false
+                                            assignmentPassedName = data.eventDataList[index]["data"]!["name"] ?? "#NAME?"
                                             
+                                            if deleteAssignment==false{
+                                                showEndTime = true
+                                                timerOn = false
+                                            }
+                                            
+
                                             if deleteAssignment{
-                                                indicesToRemove.append(index)
                                                 
-                                                
+                                                //indicesToRemove.append(index)
+                                                indexToRemove = index
                                                 
                                             }//if they continue with delete
                                             
-                                            
+
                                             
                                         }//if date passed
                                         
@@ -127,12 +136,20 @@ struct ContentView: View {
                                     }//for loop
                                     if deleteAssignment{
                                         
-                                        
+                                        /*
                                         for index in indicesToRemove.reversed(){
-                                            data.eventDataList.remove(at: index)
+                                            //data.eventDataList.remove(at: index)
                                         }//for loop after orginal one
+                                        */
+                                        
+                                        data.eventDataList.remove(at: indexToRemove)
                                         
                                         print(data.eventDataList)
+                                        deleteAssignment = false
+                                        //indicesToRemove = []
+                                        indexToRemove = -1
+                                        
+                                       
                                         
 
                                     }//if deleting
@@ -147,8 +164,8 @@ struct ContentView: View {
                             }//on recieve
                             .alert(isPresented: $showEndTime) {
                                 Alert(
-                                    title: Text("Warning"),
-                                    message: Text("This assignment ended"),
+                                    title: Text("Warning: a due date has passed."),
+                                    message: Text("'\(assignmentPassedName)' has ended"),
                                     primaryButton: .default(Text("Extend due date")){
                                         timerOn = true
 
