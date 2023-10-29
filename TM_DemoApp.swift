@@ -11,10 +11,12 @@ import BackgroundTasks
 @main
 struct TM_DemoApp: App {
     @StateObject var _data = MyData()
+    
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
                 .environmentObject(_data)
+                
         }
     }
     

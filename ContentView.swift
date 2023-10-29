@@ -13,19 +13,14 @@ import Foundation
 struct ContentView: View {
     
     @EnvironmentObject var data: MyData
+    
+
     @State public var showAddAssignments: Bool = false
     @State public var showAddConflicts: Bool = false
-    let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
-    @State private var showEndTime: Bool = false
-    @State private var deleteAssignment: Bool = false
-    @State private var timerOn: Bool = true
-    
-    //@State var indicesToRemove: [Int] = []
-    @State var indexToRemove: Int = -1
-    @State var assignmentPassedName: String = ""
+
 
   
-
+    //let myTimer = MyTimer.shared
     
     
     
@@ -99,88 +94,8 @@ struct ContentView: View {
                         Text("My Schedule")
                             .font(.title)
                             .fontWeight(.semibold)
-                            .onReceive(timer){ _ in
-                                let dateFormatter = DateFormatter()
-                                dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
-                                
-                                if !data.eventDataList.isEmpty && timerOn{
-                                    
-
-
-                                    for index in data.eventDataList.indices{
-                                        
-                                        
-                                        
-                                        if Date() > dateFormatter.date(from: data.eventDataList[index]["data"]!["end"]!)!{
-                                            
-                                            assignmentPassedName = data.eventDataList[index]["data"]!["name"] ?? "#NAME?"
-                                            
-                                            if deleteAssignment==false{
-                                                showEndTime = true
-                                                timerOn = false
-                                            }
-                                            
-
-                                            if deleteAssignment{
-                                                
-                                                //indicesToRemove.append(index)
-                                                indexToRemove = index
-                                                
-                                            }//if they continue with delete
-                                            
-
-                                            
-                                        }//if date passed
-                                        
-   
-                                    }//for loop
-                                    if deleteAssignment{
-                                        
-                                        /*
-                                        for index in indicesToRemove.reversed(){
-                                            //data.eventDataList.remove(at: index)
-                                        }//for loop after orginal one
-                                        */
-                                        
-                                        data.eventDataList.remove(at: indexToRemove)
-                                        
-                                        print(data.eventDataList)
-                                        deleteAssignment = false
-                                        //indicesToRemove = []
-                                        indexToRemove = -1
-                                        
-                                       
-                                        
-
-                                    }//if deleting
-                                    
-                                    
-                                }//if empty
-                                
-
-                                
-                                
-                                
-                            }//on recieve
-                            .alert(isPresented: $showEndTime) {
-                                Alert(
-                                    title: Text("Warning: a due date has passed."),
-                                    message: Text("'\(assignmentPassedName)' has ended"),
-                                    primaryButton: .default(Text("Extend due date")){
-                                        timerOn = true
-
-                                    },
-                                    secondaryButton: .destructive(Text("Delete")){
-                                        
-                                        deleteAssignment = true
-                                        timerOn = true
-
-                                       
-                                    
-                                    }//delete
-                                )//alert
-                                
-                            }//alert
+                            
+                            
                          
                         
                         
@@ -283,6 +198,99 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(MyData())
+        ContentView()
+            .environmentObject(MyData())
     }
 }
+
+
+//add if timer doesn't work
+/*
+ 
+ .onReceive(timer){ _ in
+     let dateFormatter = DateFormatter()
+     dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
+     if data.resumeContentTimer{
+         timerOn = true
+     }
+     
+     
+     if !data.eventDataList.isEmpty && timerOn{
+         
+         print("pluh")
+
+         for index in data.eventDataList.indices{
+             
+             
+             
+             if Date() > dateFormatter.date(from: data.eventDataList[index]["data"]!["end"]!)!{
+               
+                 assignmentPassedName = data.eventDataList[index]["data"]!["name"] ?? "#NAME?"
+                 
+                 if deleteAssignment==false{
+                     showEndTime = true
+                     timerOn = false
+                 }
+                 
+
+                 if deleteAssignment{
+                     
+                     //indicesToRemove.append(index)
+                     indexToRemove = index
+                     
+                 }//if they continue with delete
+                 
+
+                 
+             }//if date passed
+             
+
+         }//for loop
+         if deleteAssignment{
+             
+             /*
+             for index in indicesToRemove.reversed(){
+                 //data.eventDataList.remove(at: index)
+             }//for loop after orginal one
+             */
+             
+             data.eventDataList.remove(at: indexToRemove)
+             
+             print(data.eventDataList)
+             deleteAssignment = false
+             //indicesToRemove = []
+             indexToRemove = -1
+             
+            
+             
+
+         }//if deleting
+         
+         
+     }//if empty
+     
+
+     
+     
+     
+ }//on recieve
+ .alert(isPresented: $showEndTime) {
+     Alert(
+         title: Text("Warning: a due date has passed."),
+         message: Text("'\(assignmentPassedName)' has ended"),
+         primaryButton: .default(Text("Extend due date")){
+             timerOn = true
+
+         },
+         secondaryButton: .destructive(Text("Delete")){
+             
+             deleteAssignment = true
+             timerOn = true
+
+            
+         
+         }//delete
+     )//alert
+     
+ }//alert
+ */
