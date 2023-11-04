@@ -1,10 +1,3 @@
-//
-//  AddNewSheet.swift
-//  TM_Demo
-//
-//  Created by SamSan on 9/9/23.
-//
-
 import SwiftUI
 
 struct AddNewSheet: View {
@@ -17,8 +10,6 @@ struct AddNewSheet: View {
     
     @State private var temp: String = ""
     
-   
-
     var body: some View {
         
         
@@ -35,11 +26,6 @@ struct AddNewSheet: View {
                         .font(.title)
                         .fontWeight(.semibold)
                         .padding(.leading, 10)
-                    
-                        
-                    
-                    
-                    
                     Button {
                         print("tutorial")
                     } label: {
@@ -135,7 +121,6 @@ struct AddNewSheet: View {
                     
                 }//desc
                 .padding()
-                
                 
                 
 
@@ -517,8 +502,6 @@ struct AddNewSheet: View {
                                 data.typeDone = false
                                 data.eventRecurring = false
                                 data.recurringDays = [Days(name: "Sunday", isChecked: false), Days(name: "Monday", isChecked: false),Days(name: "Tuesday", isChecked: false),Days(name: "Wednesday", isChecked: false),Days(name: "Thursday", isChecked: false),Days(name: "Friday", isChecked: false),Days(name: "Saturday", isChecked: false)]
-                                
-                                data.resumeContentTimer = true
                                 dismiss()
                                 
                    
@@ -653,7 +636,6 @@ struct AddNewSheet: View {
                                     data.eventRecurring = false
                                     data.recurringDays = [Days(name: "Sunday", isChecked: false), Days(name: "Monday", isChecked: false),Days(name: "Tuesday", isChecked: false),Days(name: "Wednesday", isChecked: false),Days(name: "Thursday", isChecked: false),Days(name: "Friday", isChecked: false),Days(name: "Saturday", isChecked: false)]
                                     
-                                    data.resumeContentTimer = true
                                     dismiss()
                                     
                                 }// if name is unique
@@ -733,8 +715,7 @@ struct AddNewSheet: View {
                     //x button
                     Button {
                         
-                        data.resumeContentTimer = true
-
+                 
                         dismiss()
                     } label: {
                         Image(systemName: "xmark.circle.fill")
@@ -818,4 +799,3 @@ struct AddNewSheet_Previews: PreviewProvider {
         //NewRecurringEvent().environmentObject(MyData())
     }
 }
-

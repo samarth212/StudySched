@@ -8,7 +8,7 @@
 import Foundation
 
 
-class MyTimer: ObservableObject{
+class MyTimer_{
     
 
     
@@ -26,13 +26,6 @@ class MyTimer: ObservableObject{
     private var timer: Timer?
     let interval: DispatchTimeInterval = .seconds(5)
 
-    func startTimer(){
-        
-        DispatchQueue.global(qos: .background).async{
-            
-        }
-        
-    }
     
     
     
