@@ -345,7 +345,8 @@ struct EditAssignment: View {
                             data.eventWeekend = false
                             
                             
-                            
+                            data.showEndTime = false
+                            data.timerOn = true
                             dismiss()
                             
                             

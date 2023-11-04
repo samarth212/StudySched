@@ -19,7 +19,6 @@ struct ContentView: View {
     @State public var showAddAssignments: Bool = false
     @State public var showAddConflicts: Bool = false
 
-    @State var showEndTime: Bool = false
     @State var deleteAssignment: Bool = false
     @State var indexToRemove: Int = -1
     @State var assignmentPassedName: String = ""
@@ -27,10 +26,7 @@ struct ContentView: View {
     @State var rindexToRemove: Int = -1
     @State var rassignmentPassedName: String = ""
     
-    @State var alertSet: Set<String> = Set()
 
-
-    
     
     var body: some View {
         
@@ -49,7 +45,7 @@ struct ContentView: View {
                         //Add New Event Button
                         Button {
                             showAddAssignments.toggle()
-                            
+
                         } label: {
      
                             HStack(spacing:3){
@@ -106,56 +102,57 @@ struct ContentView: View {
                             .font(.title)
                             .fontWeight(.semibold)
                             .onReceive(timer){ _ in
-                                let dateFormatter = DateFormatter()
-                                dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
                                 
-                                
-                                if !data.eventDataList.isEmpty{
-                                    
-                                    print("showAdd: \(showAddAssignments), alert: \(showEndTime)")
+                                if data.timerOn{
+                                    let dateFormatter = DateFormatter()
+                                    dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
+                                    if !data.eventDataList.isEmpty{
+                                        
+                                        print("showAdd: \(showAddAssignments), alert: \(data.showEndTime)")
 
-                                    for index in data.eventDataList.indices{
-                                        
-                                        
-                                        
-                                        if Date() > dateFormatter.date(from: data.eventDataList[index]["data"]!["end"]!)!{
-                                          
-                                            //showAddAssignments = false
-                                            assignmentPassedName = data.eventDataList[index]["data"]!["name"] ?? "#NAME?"
+                                        for index in data.eventDataList.indices{
                                             
-                                            if deleteAssignment==false{
-                                                showEndTime.toggle()
+
+                                            if Date() > dateFormatter.date(from: data.eventDataList[index]["data"]!["end"]!)!{
                                               
-                                            }
-                                            else{
-                                                indexToRemove = index
+                                                //showAddAssignments = false
+                                                assignmentPassedName = data.eventDataList[index]["data"]!["name"] ?? "#NAME?"
+                                                
+                                                if deleteAssignment==false{
+                                                    data.timerOn = false
+                                                    data.showEndTime = true
+                                                  
+                                                }
+                                                else{
+                                                    indexToRemove = index
 
-                                            }//remove
+                                                }//remove
+                                                
+                                                
+
+                                                
+                                            }//if date passed
                                             
+
+                                        }//for loop
+                                        if deleteAssignment{
+                                            
+                                          
+                                            
+                                            data.eventDataList.remove(at: indexToRemove)
+                                            
+                                            print(data.eventDataList)
+                                            deleteAssignment = false
+                                            indexToRemove = -1
+                                           
                                             
 
-                                            
-                                        }//if date passed
+                                        }//if deleting
                                         
-
-                                    }//for loop
-                                    if deleteAssignment{
                                         
-                                      
-                                        
-                                        data.eventDataList.remove(at: indexToRemove)
-                                        
-                                        print(data.eventDataList)
-                                        deleteAssignment = false
-                                        indexToRemove = -1
-                                        
-                                       
-                                        
-
-                                    }//if deleting
-                                    
-                                    
-                                }//if empty
+                                    }//if empty
+                                }//while timer is running
+                                
                                 
 
                                 
@@ -251,16 +248,17 @@ struct ContentView: View {
                  
             }//zstack main
         }//navigation view
-        .alert(isPresented: $showEndTime) {
+        .alert(isPresented: $data.showEndTime) {
             Alert(
                 title: Text("Warning: a due date has passed."),
                 message: Text("'\(assignmentPassedName)' has ended"),
                 primaryButton: .default(Text("Extend due date")){
-       
+                    data.timerOn = true
                 },
                 secondaryButton: .destructive(Text("Delete")){
                     
                     deleteAssignment = true
+                    data.timerOn = true
            
                 }//delete
             )//alert

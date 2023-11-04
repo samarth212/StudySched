@@ -105,6 +105,8 @@ struct AddNewConflict: View {
                                 
                             }//appending data
                             
+                            data.showEndTime = false
+                            data.timerOn = true
                             dismiss()
                             
                         }//if name unique
@@ -182,7 +184,8 @@ struct AddNewConflict: View {
                     //x button
                     Button {
                         
-                 
+                        data.showEndTime = false
+                        data.timerOn = true
                         dismiss()
                     } label: {
                         Image(systemName: "xmark.circle.fill")

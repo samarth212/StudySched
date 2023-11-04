@@ -72,6 +72,8 @@ class MyData: ObservableObject{
     
 //Timer stuff
  
+    @Published var timerOn: Bool = true
+    @Published var showEndTime: Bool = false
 
 
 //-------------------------------------------------------------------------------------------------------------

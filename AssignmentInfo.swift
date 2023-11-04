@@ -59,6 +59,8 @@ struct AssignmentInfo: View {
                     Spacer()
                     
                     Button {
+                        data.showEndTime = false
+                        data.timerOn = true
                         dismiss()
                     } label: {
                         Image(systemName: "xmark.circle.fill")

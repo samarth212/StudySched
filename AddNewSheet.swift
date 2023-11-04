@@ -502,7 +502,11 @@ struct AddNewSheet: View {
                                 data.typeDone = false
                                 data.eventRecurring = false
                                 data.recurringDays = [Days(name: "Sunday", isChecked: false), Days(name: "Monday", isChecked: false),Days(name: "Tuesday", isChecked: false),Days(name: "Wednesday", isChecked: false),Days(name: "Thursday", isChecked: false),Days(name: "Friday", isChecked: false),Days(name: "Saturday", isChecked: false)]
+                                
+                                data.showEndTime = false
+                                data.timerOn = true
                                 dismiss()
+
                                 
                    
                                 
@@ -636,7 +640,10 @@ struct AddNewSheet: View {
                                     data.eventRecurring = false
                                     data.recurringDays = [Days(name: "Sunday", isChecked: false), Days(name: "Monday", isChecked: false),Days(name: "Tuesday", isChecked: false),Days(name: "Wednesday", isChecked: false),Days(name: "Thursday", isChecked: false),Days(name: "Friday", isChecked: false),Days(name: "Saturday", isChecked: false)]
                                     
+                                    data.showEndTime = false
+                                    data.timerOn = true
                                     dismiss()
+
                                     
                                 }// if name is unique
                                 else {
@@ -715,8 +722,10 @@ struct AddNewSheet: View {
                     //x button
                     Button {
                         
-                 
+                        data.showEndTime = false
+                        data.timerOn = true
                         dismiss()
+                        
                     } label: {
                         Image(systemName: "xmark.circle.fill")
                             .foregroundColor(.red)
