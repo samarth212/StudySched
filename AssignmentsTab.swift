@@ -136,6 +136,7 @@ struct AssignmentsTab: View {
                     
                 }//list
                 .frame(height:UIScreen.main.bounds.height/2.25)
+                .padding(.top)
                 
                 
                 

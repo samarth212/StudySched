@@ -346,6 +346,7 @@ struct EditAssignment: View {
                             
                             
                             data.showEndTime = false
+                            data.rshowEndTime = false
                             data.timerOn = true
                             dismiss()
                             

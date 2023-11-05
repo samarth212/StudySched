@@ -440,7 +440,7 @@ struct AddNewSheet: View {
                 
                 if data.eventRecurring{
                     //IF EVERYTHING IS ENTERED
-                    if data.rDiffDone == true && data.rTypeDone == true && data.rName != "" && data.rDesc != "" && data.rEnd >= data.rStart + (86400*7) && data.rEnd > Date() && data.rTimeStart < data.rTimeEnd{
+                    if data.rDiffDone == true && data.rTypeDone == true && data.rName != "" && data.rDesc != "" /* && data.rEnd >= data.rStart + (86400*7) && data.rEnd > Date() && data.rTimeStart < data.rTimeEnd*/{
                         
                         Button {
                             
@@ -504,6 +504,7 @@ struct AddNewSheet: View {
                                 data.recurringDays = [Days(name: "Sunday", isChecked: false), Days(name: "Monday", isChecked: false),Days(name: "Tuesday", isChecked: false),Days(name: "Wednesday", isChecked: false),Days(name: "Thursday", isChecked: false),Days(name: "Friday", isChecked: false),Days(name: "Saturday", isChecked: false)]
                                 
                                 data.showEndTime = false
+                                data.rshowEndTime = false
                                 data.timerOn = true
                                 dismiss()
 
@@ -641,6 +642,7 @@ struct AddNewSheet: View {
                                     data.recurringDays = [Days(name: "Sunday", isChecked: false), Days(name: "Monday", isChecked: false),Days(name: "Tuesday", isChecked: false),Days(name: "Wednesday", isChecked: false),Days(name: "Thursday", isChecked: false),Days(name: "Friday", isChecked: false),Days(name: "Saturday", isChecked: false)]
                                     
                                     data.showEndTime = false
+                                    data.rshowEndTime = false
                                     data.timerOn = true
                                     dismiss()
 
@@ -723,6 +725,7 @@ struct AddNewSheet: View {
                     Button {
                         
                         data.showEndTime = false
+                        data.rshowEndTime = false
                         data.timerOn = true
                         dismiss()
                         

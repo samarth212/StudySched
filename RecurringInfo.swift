@@ -61,6 +61,9 @@ struct RecurringInfo: View {
                     Spacer()
                     
                     Button {
+                        data.showEndTime = false
+                        data.rshowEndTime = false
+                        data.timerOn = true
                         dismiss()
                     } label: {
                         Image(systemName: "xmark.circle.fill")

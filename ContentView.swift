@@ -23,6 +23,7 @@ struct ContentView: View {
     @State var indexToRemove: Int = -1
     @State var assignmentPassedName: String = ""
     
+    @State var rdeleteAssignment: Bool = false
     @State var rindexToRemove: Int = -1
     @State var rassignmentPassedName: String = ""
     
@@ -151,6 +152,39 @@ struct ContentView: View {
                                         
                                         
                                     }//if empty
+                                    
+                                    if !data.recurringDataList.isEmpty{
+                                        
+                                        for index in data.recurringDataList.indices{
+                                            
+                                            let rDate = "\(data.recurringDataList[index]["data"]!["enddate"]!) at \(data.recurringDataList[index]["data"]!["endtime"]!)"
+                                            
+                                            if Date() > dateFormatter.date(from: rDate) ?? (Date()+86400){
+                                                rassignmentPassedName = data.recurringDataList[index]["data"]!["name"] ?? "#NAME?"
+                                                
+                                                if rdeleteAssignment==false{
+                                                    data.timerOn = false
+                                                    data.rshowEndTime = true
+                                                }
+                                                else{
+                                                    rindexToRemove = index
+                                                }//remove
+                                                
+                                                
+                                            }//if date has passed
+                                            
+                                            
+                                        }//loop
+                                        if rdeleteAssignment{
+                                            data.recurringDataList.remove(at: rindexToRemove)
+                                            print(data.recurringDataList)
+                                            rdeleteAssignment = false
+                                            rindexToRemove = -1
+                                        }// if deleting recurring
+                                        
+                                    }//if recurring empty
+                                    
+                                    
                                 }//while timer is running
                                 
                                 
@@ -257,13 +291,34 @@ struct ContentView: View {
                 },
                 secondaryButton: .destructive(Text("Delete")){
                     
+                    
                     deleteAssignment = true
+                    
                     data.timerOn = true
            
                 }//delete
             )//alert
             
         }//alert
+        .alert(isPresented: $data.rshowEndTime) {
+            Alert(
+                title: Text("Warning: a due date has passed."),
+                message: Text("'\(rassignmentPassedName)' has ended"),
+                primaryButton: .default(Text("Extend due date")){
+                    data.timerOn = true
+                },
+                secondaryButton: .destructive(Text("Delete")){
+                    
+                    rdeleteAssignment = true
+                    data.timerOn = true
+           
+                }//delete
+                
+            )//alert
+            
+        }//alert
+        
+        
         
         
         

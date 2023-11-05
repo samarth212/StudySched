@@ -106,6 +106,7 @@ struct AddNewConflict: View {
                             }//appending data
                             
                             data.showEndTime = false
+                            data.rshowEndTime = false
                             data.timerOn = true
                             dismiss()
                             
@@ -185,6 +186,7 @@ struct AddNewConflict: View {
                     Button {
                         
                         data.showEndTime = false
+                        data.rshowEndTime = false
                         data.timerOn = true
                         dismiss()
                     } label: {
