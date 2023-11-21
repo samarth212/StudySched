@@ -27,7 +27,10 @@ struct ContentView: View {
     @State var rindexToRemove: Int = -1
     @State var rassignmentPassedName: String = ""
     
+    @State var dueDate: Date = Date()+86400
 
+    
+    @State var bothTypesDue: Bool = false
     
     var body: some View {
         
@@ -106,84 +109,100 @@ struct ContentView: View {
                                 
                                 if data.timerOn{
                                     let dateFormatter = DateFormatter()
-                                    dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
-                                    if !data.eventDataList.isEmpty{
+                                     dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
+
+                                    
+                                    
+                                    
+                                    
+                                    if bothTypesDue{
                                         
-                                        print("showAdd: \(showAddAssignments), alert: \(data.showEndTime)")
-
-                                        for index in data.eventDataList.indices{
+                                        
+                                    }
+                                    else{
+                                        if !data.eventDataList.isEmpty{
                                             
+                                            print("showAdd: \(showAddAssignments), alert: \(data.showEndTime)")
 
-                                            if Date() > dateFormatter.date(from: data.eventDataList[index]["data"]!["end"]!)!{
-                                              
-                                                //showAddAssignments = false
-                                                assignmentPassedName = data.eventDataList[index]["data"]!["name"] ?? "#NAME?"
+                                            for index in data.eventDataList.indices{
                                                 
-                                                if deleteAssignment==false{
-                                                    data.timerOn = false
-                                                    data.showEndTime = true
+                                                if Date() > dateFormatter.date(from: data.eventDataList[index]["data"]!["end"]!)!{
                                                   
-                                                }
-                                                else{
-                                                    indexToRemove = index
+                                                                                     
+                                                    assignmentPassedName = data.eventDataList[index]["data"]!["name"] ?? "#NAME?"
+                                                    
+                                               
+                                                    
+                                                    if deleteAssignment==false{
+                                                        data.timerOn = false
+                                                        data.showEndTime = true
+                                                      
+                                                    }
+                                                    else{
+                                                        indexToRemove = index
 
-                                                }//remove
+                                                    }//remove
+                                                    
+                                                    
+
+                                                    
+                                                }//if date passed
                                                 
+
+                                            }//for loop
+                                            if deleteAssignment{
+                                                
+                                              
+                                                
+                                                data.eventDataList.remove(at: indexToRemove)
+                                                
+                                                print(data.eventDataList)
+                                                deleteAssignment = false
+                                                indexToRemove = -1
+                                               
                                                 
 
-                                                
-                                            }//if date passed
+                                            }//if deleting
                                             
-
-                                        }//for loop
-                                        if deleteAssignment{
                                             
-                                          
-                                            
-                                            data.eventDataList.remove(at: indexToRemove)
-                                            
-                                            print(data.eventDataList)
-                                            deleteAssignment = false
-                                            indexToRemove = -1
-                                           
-                                            
-
-                                        }//if deleting
+                                        }//if empty
                                         
-                                        
-                                    }//if empty
+                                        if !data.recurringDataList.isEmpty{
+                                            
+                                            for index in data.recurringDataList.indices{
+                                                
+                                                let rDate = "\(data.recurringDataList[index]["data"]!["enddate"]!) at \(data.recurringDataList[index]["data"]!["endtime"]!)"
+                                                
+                                                    
+                                                if Date() > dateFormatter.date(from: rDate) ?? (Date()+86400){
+                                                    
+                                                                                                    
+                                                    rassignmentPassedName = data.recurringDataList[index]["data"]!["name"] ?? "#NAME?"
+                                                    
+                                                    if rdeleteAssignment==false{
+                                                        data.timerOn = false
+                                                        data.rshowEndTime = true
+                                                    }
+                                                    else{
+                                                        rindexToRemove = index
+                                                    }//remove
+                                                    
+                                                    
+                                                }//if date has passed
+                                                
+                                                
+                                            }//loop
+                                            if rdeleteAssignment{
+                                                data.recurringDataList.remove(at: rindexToRemove)
+                                                print(data.recurringDataList)
+                                                rdeleteAssignment = false
+                                                rindexToRemove = -1
+                                            }// if deleting recurring
+                                            
+                                        }//if recurring empty
+                                    }
                                     
-                                    if !data.recurringDataList.isEmpty{
-                                        
-                                        for index in data.recurringDataList.indices{
-                                            
-                                            let rDate = "\(data.recurringDataList[index]["data"]!["enddate"]!) at \(data.recurringDataList[index]["data"]!["endtime"]!)"
-                                            
-                                            if Date() > dateFormatter.date(from: rDate) ?? (Date()+86400){
-                                                rassignmentPassedName = data.recurringDataList[index]["data"]!["name"] ?? "#NAME?"
-                                                
-                                                if rdeleteAssignment==false{
-                                                    data.timerOn = false
-                                                    data.rshowEndTime = true
-                                                }
-                                                else{
-                                                    rindexToRemove = index
-                                                }//remove
-                                                
-                                                
-                                            }//if date has passed
-                                            
-                                            
-                                        }//loop
-                                        if rdeleteAssignment{
-                                            data.recurringDataList.remove(at: rindexToRemove)
-                                            print(data.recurringDataList)
-                                            rdeleteAssignment = false
-                                            rindexToRemove = -1
-                                        }// if deleting recurring
-                                        
-                                    }//if recurring empty
-                                    
+
                                     
                                 }//while timer is running
                                 
@@ -203,6 +222,7 @@ struct ContentView: View {
                         
                     }//hstack title
                     .padding(.leading)
+                    
                     
                     
                     
@@ -281,6 +301,24 @@ struct ContentView: View {
             
                  
             }//zstack main
+            .alert(isPresented: $data.rshowEndTime) {
+                Alert(
+                    title: Text("Warning: a due date has passed."),
+                    message: Text("'\(rassignmentPassedName)' has ended"),
+                    primaryButton: .default(Text("Extend due date")){
+                        data.timerOn = true
+                    },
+                    secondaryButton: .destructive(Text("Delete")){
+                        
+                        rdeleteAssignment = true
+                        data.timerOn = true
+               
+                    }//delete
+                    
+                )//alert
+                
+            }//alert
+            
         }//navigation view
         .alert(isPresented: $data.showEndTime) {
             Alert(
@@ -300,23 +338,7 @@ struct ContentView: View {
             )//alert
             
         }//alert
-        .alert(isPresented: $data.rshowEndTime) {
-            Alert(
-                title: Text("Warning: a due date has passed."),
-                message: Text("'\(rassignmentPassedName)' has ended"),
-                primaryButton: .default(Text("Extend due date")){
-                    data.timerOn = true
-                },
-                secondaryButton: .destructive(Text("Delete")){
-                    
-                    rdeleteAssignment = true
-                    data.timerOn = true
-           
-                }//delete
-                
-            )//alert
-            
-        }//alert
+        
         
         
         
