@@ -29,8 +29,13 @@ struct ContentView: View {
     
     @State var dueDate: Date = Date()+86400
 
-    
     @State var bothTypesDue: Bool = false
+    
+    
+    
+    @State var indicesToRemove: [Int] = []
+    @State var rindicesToRemove: [Int] = []
+
     
     var body: some View {
         
@@ -112,12 +117,47 @@ struct ContentView: View {
                                      dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
 
                                     
-                                    
+                                    if !data.eventDataList.isEmpty && !data.recurringDataList.isEmpty{
+                                        for i in data.eventDataList.indices{
+                                            
+                                            let tempDate = dateFormatter.date(from: data.eventDataList[i]["data"]!["end"]!)
+                                            
+                                            for j in data.recurringDataList.indices{
+                                                
+                                                let rtempDate = dateFormatter.date(from: "\(data.recurringDataList[i]["data"]!["enddate"]!) at \(data.recurringDataList[i]["data"]!["endtime"]!)")
+                                                
+                                                if tempDate == rtempDate{
+                                                    bothTypesDue = true
+                                                    indicesToRemove.append(i)
+                                                    rindicesToRemove.append(j)
+                                                }
+                                                
+                                            }//looping through the dates of the recurrings
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        }//looping through the dates of events
+                                        
+                                        
+                                        
+                                    }//making sure both exist
                                     
                                     
                                     if bothTypesDue{
                                         
-                                        
+                                        for i in indicesToRemove{
+                                            data.eventDataList.remove(at: i)
+                                            print(data.eventDataList)
+                                        }//looping through all matching and deleting all
+                                        for j in rindicesToRemove{
+                                            data.recurringDataList.remove(at: j)
+                                            print(data.recurringDataList)
+                                        }//looping through all matching and deleting all
+                                        indicesToRemove = []
+                                        rindicesToRemove = []
+                                        bothTypesDue = false
                                     }
                                     else{
                                         if !data.eventDataList.isEmpty{
