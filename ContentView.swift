@@ -124,13 +124,22 @@ struct ContentView: View {
                                             
                                             for j in data.recurringDataList.indices{
                                                 
-                                                let rtempDate = dateFormatter.date(from: "\(data.recurringDataList[i]["data"]!["enddate"]!) at \(data.recurringDataList[i]["data"]!["endtime"]!)")
+                                                let rtempDate = dateFormatter.date(from: "\(data.recurringDataList[j]["data"]!["enddate"]!) at \(data.recurringDataList[j]["data"]!["endtime"]!)")
                                                 
-                                                if tempDate == rtempDate{
+                                                if tempDate == rtempDate && tempDate ?? Date() < Date() && rtempDate ?? Date() < Date() {
+                                                    
                                                     bothTypesDue = true
-                                                    indicesToRemove.append(i)
-                                                    rindicesToRemove.append(j)
-                                                }
+                                                    
+                                                    if !indicesToRemove.contains(i){
+                                                        indicesToRemove.append(i)
+                                                    }//checking for no double indexing
+                                                    
+                                                    if !rindicesToRemove.contains(j){
+                                                        rindicesToRemove.append(j)
+                                                    }//checking for no double indexing
+                                                    
+                                                    print(indicesToRemove, rindicesToRemove)
+                                                }//if match in dates
                                                 
                                             }//looping through the dates of the recurrings
                                             
