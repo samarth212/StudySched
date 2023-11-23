@@ -11,7 +11,6 @@ struct ConflictsTab: View {
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var data: MyData
-
     
     var body: some View {
         
@@ -36,8 +35,10 @@ struct ConflictsTab: View {
                         let cstart = cdictData?["start"]
                         let cend = cdictData?["end"]
                         
+                        
                         let defaultEnd = Date() + 3600 //default for the dat since it gives error
                         
+
                         //main view hstack
                         HStack{
                             
@@ -52,6 +53,13 @@ struct ConflictsTab: View {
                             Text("to")
                             Text(cend ?? "\(defaultEnd.formatted(date: .omitted, time: .shortened))")
                                 .foregroundColor(.orange)
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                             
                             
                         }//hstack main

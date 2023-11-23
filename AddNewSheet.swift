@@ -10,6 +10,9 @@ struct AddNewSheet: View {
     
     @State private var temp: String = ""
     
+    @State private var isConflicted: Bool = false
+    @State private var showConflictAlert: Bool = false
+    
     var body: some View {
         
         
@@ -440,7 +443,7 @@ struct AddNewSheet: View {
                 
                 if data.eventRecurring{
                     //IF EVERYTHING IS ENTERED
-                    if data.rDiffDone == true && data.rTypeDone == true && data.rName != "" && data.rDesc != "" /* && data.rEnd >= data.rStart + (86400*7) && data.rEnd > Date() && data.rTimeStart < data.rTimeEnd*/{
+                    if data.rDiffDone == true && data.rTypeDone == true && data.rName != "" && data.rDesc != "" && data.rEnd >= data.rStart + (86400*7) && data.rEnd > Date() && data.rTimeStart < data.rTimeEnd{
                         
                         Button {
                             
@@ -591,6 +594,7 @@ struct AddNewSheet: View {
                         Button {
                             
                                 checkRepeat()
+                                
                                 if isRepeated == false{
                                     
                                     //check if values are empty
@@ -787,6 +791,36 @@ struct AddNewSheet: View {
         
         
     }//checkRepeat function
+    
+    private func checkConflict(eventStart: String, eventEnd: String){
+        
+        let dateFormatter = DateFormatter()
+         dateFormatter.dateFormat = "h:mm a"
+        
+        var start1 = dateFormatter.date(from: eventStart)
+        var end1 = dateFormatter.date(from: eventEnd)
+
+        for index in data.conflictDataList.indices{
+            let startStr = data.conflictDataList[index]["data"]!["start"]
+            let endStr = data.conflictDataList[index]["data"]!["end"]
+            
+            let start = dateFormatter.date(from: startStr ?? "\(Date())")
+            let end = dateFormatter.date(from: endStr ?? "\(Date() + 3600)")
+            
+            if (start1! >= start! && start1! <= end!) ||
+                (end1! >= start! && end1! <= end!) ||
+                (start! >= start1! && start! <= end1!) ||
+                (end! >= start1! && end! <= end1!){
+                
+                isConflicted.toggle()
+                
+            }//if overlap between conflicts and event
+            
+        }//looping through conflicts
+        
+        
+        
+    }//checkConflict function
     
 }//AddNewSheet
 

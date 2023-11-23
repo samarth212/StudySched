@@ -92,7 +92,15 @@ struct AddNewConflict: View {
                                 
                                 data.conflictData = [
                                     
-                                    "data": ["name":data.conflictName, "start": "\(data.conflictStart.formatted(date: .omitted, time: .shortened))", "end": "\(data.conflictEnd.formatted(date: .omitted, time: .shortened))"]
+                                    "data": [
+                                        
+                                             "name": data.conflictName,
+                                             
+                                             "start": "\(data.conflictStart.formatted(date: .omitted, time: .shortened))",
+                                             
+                                             "end": "\(data.conflictEnd.formatted(date: .omitted, time: .shortened))",
+                                             
+                                            ]
 
                                 ]
                                 
