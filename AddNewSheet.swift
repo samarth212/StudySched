@@ -587,15 +587,13 @@ struct AddNewSheet: View {
                     //IF EVERYTHING IS ENTERED
                     if data.diffDone == true && data.typeDone == true && data.eventName != "" && data.eventDesc != "" && data.eventStart < data.eventEnd && data.eventEnd > Date() {
                         
-                        
-                        
-                        
-                        
+                      
                         Button {
                             
                                 checkRepeat()
+                                checkConflict(eventStart: "\(data.eventStart)", eventEnd: "\(data.eventEnd)")
                                 
-                                if isRepeated == false{
+                                if isRepeated == false && isConflicted == false{
                                     
                                     //check if values are empty
                                     if !data.eventName.isEmpty && !data.eventDesc.isEmpty && data.eventDiff != "1-5 (increasing difficulty)" && data.eventType != "Assignment type..." && data.eventStart != Date() && data.eventEnd != Date()+86400 {
@@ -651,8 +649,18 @@ struct AddNewSheet: View {
                                     dismiss()
 
                                     
-                                }// if name is unique
-                                else {
+                                }// if name is unique and no conflicts
+                                else if isRepeated && isConflicted == false {
+                                    showRepeatAlert.toggle()
+                                    isRepeated.toggle()
+                                }//present alert
+                                else if isConflicted && isRepeated == false{
+                                    showConflictAlert.toggle()
+                                    isConflicted.toggle()
+                                }//present alert
+                                else{
+                                    showConflictAlert.toggle()
+                                    isConflicted.toggle()
                                     showRepeatAlert.toggle()
                                     isRepeated.toggle()
                                 }//present alert
@@ -797,8 +805,8 @@ struct AddNewSheet: View {
         let dateFormatter = DateFormatter()
          dateFormatter.dateFormat = "h:mm a"
         
-        var start1 = dateFormatter.date(from: eventStart)
-        var end1 = dateFormatter.date(from: eventEnd)
+        let start1 = dateFormatter.date(from: eventStart)
+        let end1 = dateFormatter.date(from: eventEnd)
 
         for index in data.conflictDataList.indices{
             let startStr = data.conflictDataList[index]["data"]!["start"]
