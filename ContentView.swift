@@ -115,8 +115,7 @@ struct ContentView: View {
                                 if data.timerOn{
                                     let dateFormatter = DateFormatter()
                                      dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
-
-                                    
+                                                                        
                                     if !data.eventDataList.isEmpty && !data.recurringDataList.isEmpty{
                                         for i in data.eventDataList.indices{
                                             
@@ -143,9 +142,7 @@ struct ContentView: View {
                                                 
                                             }//looping through the dates of the recurrings
                                             
-                                            
-                                            
-                                            
+  
                                             
                                         }//looping through the dates of events
                                         
@@ -156,18 +153,18 @@ struct ContentView: View {
                                     
                                     if bothTypesDue{
                                         
-                                        for i in indicesToRemove{
+                                        for i in indicesToRemove.reversed(){
                                             data.eventDataList.remove(at: i)
                                             print(data.eventDataList)
                                         }//looping through all matching and deleting all
-                                        for j in rindicesToRemove{
+                                        for j in rindicesToRemove.reversed(){
                                             data.recurringDataList.remove(at: j)
                                             print(data.recurringDataList)
                                         }//looping through all matching and deleting all
                                         indicesToRemove = []
                                         rindicesToRemove = []
                                         bothTypesDue = false
-                                    }
+                                    }//if both types due
                                     else{
                                         if !data.eventDataList.isEmpty{
                                             
@@ -246,10 +243,10 @@ struct ContentView: View {
                                                 print(data.recurringDataList)
                                                 rdeleteAssignment = false
                                                 rindexToRemove = -1
-                                            }// if deleting recurring
+                                            }//if deleting recurring
                                             
                                         }//if recurring empty
-                                    }
+                                    }//if both types are not due
                                     
 
                                     
