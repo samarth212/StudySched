@@ -591,7 +591,7 @@ struct AddNewSheet: View {
                         Button {
                             
                                 checkRepeat()
-                                checkConflict(eventStart: "\(data.eventStart)", eventEnd: "\(data.eventEnd)")
+                                checkConflict(eventStart: data.eventStart, eventEnd: data.eventEnd)
                                 
                                 if isRepeated == false && isConflicted == false{
                                     
@@ -800,33 +800,54 @@ struct AddNewSheet: View {
         
     }//checkRepeat function
     
-    private func checkConflict(eventStart: String, eventEnd: String){
+    private func checkConflict(eventStart: Date, eventEnd: Date){
         
         let dateFormatter = DateFormatter()
          dateFormatter.dateFormat = "h:mm a"
         
-        let start1 = dateFormatter.date(from: eventStart)
-        let end1 = dateFormatter.date(from: eventEnd)
+        
+        let eventStartStr: String = "\(eventStart)"
+        let eventEndStr: String = "\(eventEnd)"
 
-        for index in data.conflictDataList.indices{
-            let startStr = data.conflictDataList[index]["data"]!["start"]
-            let endStr = data.conflictDataList[index]["data"]!["end"]
-            
-            let start = dateFormatter.date(from: startStr ?? "\(Date())")
-            let end = dateFormatter.date(from: endStr ?? "\(Date() + 3600)")
-            
-            if (start1! >= start! && start1! <= end!) ||
-                (end1! >= start! && end1! <= end!) ||
-                (start! >= start1! && start! <= end1!) ||
-                (end! >= start1! && end! <= end1!){
-                
-                isConflicted.toggle()
-                
-            }//if overlap between conflicts and event
-            
-        }//looping through conflicts
+        print(eventStartStr, eventEndStr)
+        
+        print(dateFormatter.date(from: eventStartStr) ?? Date())
+        print(dateFormatter.date(from: eventEndStr) ?? Date())
         
         
+        
+        if let start1: Date = dateFormatter.date(from: eventStartStr),
+           let end1: Date = dateFormatter.date(from: eventEndStr){
+            
+            print("start1 and end1 exist")
+            
+            for index in data.conflictDataList.indices{
+                let startStr = data.conflictDataList[index]["data"]!["start"]
+                let endStr = data.conflictDataList[index]["data"]!["end"]
+                
+                if let start: Date = dateFormatter.date(from: startStr ?? "\(Date())"),
+                   let end: Date = dateFormatter.date(from: endStr ?? "\(Date() + 3600)"){
+                    
+                    print(start1, end1, start, end)
+                    
+                    if (start1 >= start && start1 <= end) ||
+                        (end1 >= start && end1 <= end) ||
+                        (start >= start1 && start <= end1) ||
+                        (end >= start1 && end <= end1){
+                        
+                        isConflicted.toggle()
+                        print("conflict has been toggled")
+                        
+                    }//if overlap between conflicts and event
+                    
+                }//if start and end
+                
+                
+            }//looping through conflicts
+            
+
+        }//if start1 and end1
+
         
     }//checkConflict function
     
