@@ -591,9 +591,8 @@ struct AddNewSheet: View {
                         Button {
                             
                                 checkRepeat()
-                                checkConflict(eventStart: data.eventStart, eventEnd: data.eventEnd)
                                 
-                                if isRepeated == false && isConflicted == false{
+                                if isRepeated == false{
                                     
                                     //check if values are empty
                                     if !data.eventName.isEmpty && !data.eventDesc.isEmpty && data.eventDiff != "1-5 (increasing difficulty)" && data.eventType != "Assignment type..." && data.eventStart != Date() && data.eventEnd != Date()+86400 {
@@ -649,21 +648,12 @@ struct AddNewSheet: View {
                                     dismiss()
 
                                     
-                                }// if name is unique and no conflicts
-                                else if isRepeated && isConflicted == false {
-                                    showRepeatAlert.toggle()
-                                    isRepeated.toggle()
-                                }//present alert
-                                else if isConflicted && isRepeated == false{
-                                    showConflictAlert.toggle()
-                                    isConflicted.toggle()
-                                }//present alert
+                                }// if name is unique
                                 else{
-                                    showConflictAlert.toggle()
-                                    isConflicted.toggle()
                                     showRepeatAlert.toggle()
                                     isRepeated.toggle()
                                 }//present alert
+                               
                                 
                                 
                                 
@@ -800,56 +790,7 @@ struct AddNewSheet: View {
         
     }//checkRepeat function
     
-    private func checkConflict(eventStart: Date, eventEnd: Date){
-        
-        let dateFormatter = DateFormatter()
-         dateFormatter.dateFormat = "h:mm a"
-        
-        
-        let eventStartStr: String = "\(eventStart)"
-        let eventEndStr: String = "\(eventEnd)"
-
-        print(eventStartStr, eventEndStr)
-        
-        print(dateFormatter.date(from: eventStartStr) ?? Date())
-        print(dateFormatter.date(from: eventEndStr) ?? Date())
-        
-        
-        
-        if let start1: Date = dateFormatter.date(from: eventStartStr),
-           let end1: Date = dateFormatter.date(from: eventEndStr){
-            
-            print("start1 and end1 exist")
-            
-            for index in data.conflictDataList.indices{
-                let startStr = data.conflictDataList[index]["data"]!["start"]
-                let endStr = data.conflictDataList[index]["data"]!["end"]
-                
-                if let start: Date = dateFormatter.date(from: startStr ?? "\(Date())"),
-                   let end: Date = dateFormatter.date(from: endStr ?? "\(Date() + 3600)"){
-                    
-                    print(start1, end1, start, end)
-                    
-                    if (start1 >= start && start1 <= end) ||
-                        (end1 >= start && end1 <= end) ||
-                        (start >= start1 && start <= end1) ||
-                        (end >= start1 && end <= end1){
-                        
-                        isConflicted.toggle()
-                        print("conflict has been toggled")
-                        
-                    }//if overlap between conflicts and event
-                    
-                }//if start and end
-                
-                
-            }//looping through conflicts
-            
-
-        }//if start1 and end1
-
-        
-    }//checkConflict function
+    
     
 }//AddNewSheet
 

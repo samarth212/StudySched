@@ -17,8 +17,8 @@ class MyData: ObservableObject{
     
     @Published var eventName: String = ""
     @Published var eventDesc: String = ""
-    @Published var eventStart = Date()
-    @Published var eventEnd = Date()+86400
+    @Published var eventStart: Date = Date()
+    @Published var eventEnd: Date = Date()+86400
     @Published var eventDiff: String = "1-5 (increasing difficulty)"
     @Published var eventType: String = "Assignment type..."
     @Published var eventWeekend: Bool = false
