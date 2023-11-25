@@ -14,12 +14,17 @@ class NotificationManager{
     
     func requestAuthorization() {
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
-        UNUserNotificationCenter.current().requestAuthorization(options: options) { (success, error) in
-            
-        }
-        
+        UNUserNotificationCenter.current().requestAuthorization(options: options) { (success, error) in }//options
     }//func to request allow notis
     
+    
+    func scheduleNotification(){
+        
+    }//func to make normal notifications
+    
+    func rscheduleNotification(){
+        
+    }//func to make recurring notifications
     
     
 }//notifications class
@@ -118,6 +123,9 @@ struct ContentView: View {
                     }//hstack
                     .padding(.top)
                     .padding(.leading)
+                    .onAppear(){
+                        UIApplication.shared.applicationIconBadgeNumber = 0
+                    }//clearing the notification icon
                     
                     
                     //My Schedule Text and Refresh
