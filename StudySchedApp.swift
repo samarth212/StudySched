@@ -9,7 +9,7 @@ import SwiftUI
 import BackgroundTasks
 
 @main
-struct TM_DemoApp: App {
+struct StudySchedApp: App {
     @StateObject var _data = MyData()
     
     var body: some Scene {
