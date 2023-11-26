@@ -1,5 +1,63 @@
 import SwiftUI
 
+class NotificationManager{
+    
+    static let instance = NotificationManager()//singleton
+    
+    func requestAuthorization() {
+        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+        UNUserNotificationCenter.current().requestAuthorization(options: options) { (success, error) in }//options
+    }//func to request allow notis
+    
+    
+    func scheduleNotification(endDate: String){
+        //"Sunday, November 26, 2023 at 11:35 AM"
+        
+        
+        let content = UNMutableNotificationContent()
+        content.title = "You have an assignment due!"
+        content.subtitle = "Make sure to finish the assignment!"
+        content.sound = .default
+        content.badge = 1
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
+        
+        let date = dateFormatter.date(from: endDate)
+        let components = Calendar.current.dateComponents([.month, .day, .year, .hour, .minute], from: date ?? Date())
+        
+        let month = components.month
+        let day = components.day
+        let year = components.year
+        let hour = components.hour
+        let minute = components.minute
+        print(month!, day!, year!, hour!, minute!)
+        
+        var dateComponents = DateComponents()
+        dateComponents.month = month
+        dateComponents.day = day
+        dateComponents.year = year
+        dateComponents.hour = hour
+        dateComponents.minute = minute
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+
+        let request = UNNotificationRequest(
+            identifier: UUID().uuidString,
+            content: content,
+            trigger: trigger
+        )
+        UNUserNotificationCenter.current().add(request)
+    }//func to make normal notifications
+    
+    func rscheduleNotification(){
+        
+    }//func to make recurring notifications
+    
+    
+}//notifications class
+
+
 struct AddNewSheet: View {
     
     @Environment(\.dismiss) var dismiss
@@ -29,6 +87,9 @@ struct AddNewSheet: View {
                         .font(.title)
                         .fontWeight(.semibold)
                         .padding(.leading, 10)
+                        .onAppear(){
+                            NotificationManager.instance.requestAuthorization()
+                        }//on appear
                     Button {
                         print("tutorial")
                     } label: {
@@ -511,23 +572,7 @@ struct AddNewSheet: View {
                                 data.timerOn = true
                                 dismiss()
 
-                                
-                   
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
+    
                                 
                             }//if name unique
                             else {
@@ -563,7 +608,7 @@ struct AddNewSheet: View {
 
                         
                         
-                    }//if eveyrthing entered
+                    }//if everything entered
                     else{
                         ZStack{
                             Rectangle()
@@ -611,6 +656,9 @@ struct AddNewSheet: View {
                                         data.eventDataList.append(data.eventData)
                                         print(data.eventDataList)
                                         
+                                        
+                                        //schedule notification
+                                        NotificationManager.instance.scheduleNotification(endDate: "\(data.eventEnd.formatted(date: .complete, time: .shortened))")
                                
                                             
                                         //clear up values for next iteration

@@ -8,26 +8,6 @@
 import SwiftUI
 import Foundation
 
-class NotificationManager{
-    
-    static let instance = NotificationManager()//singleton
-    
-    func requestAuthorization() {
-        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
-        UNUserNotificationCenter.current().requestAuthorization(options: options) { (success, error) in }//options
-    }//func to request allow notis
-    
-    
-    func scheduleNotification(){
-        
-    }//func to make normal notifications
-    
-    func rscheduleNotification(){
-        
-    }//func to make recurring notifications
-    
-    
-}//notifications class
 
 
 struct ContentView: View {
@@ -133,9 +113,6 @@ struct ContentView: View {
                         Text("My Schedule")
                             .font(.title)
                             .fontWeight(.semibold)
-                            .onAppear(){
-                                NotificationManager.instance.requestAuthorization()
-                            }
                             .onReceive(timer){ _ in
                                 
                                 if data.timerOn{
