@@ -16,7 +16,7 @@ class NotificationManager{
         
         let content = UNMutableNotificationContent()
         content.title = "You have an assignment due!"
-        content.subtitle = "Make sure to finish the assignment!"
+        content.subtitle = "Make sure you have submitted it."
         content.sound = .default
         content.badge = 1
         
