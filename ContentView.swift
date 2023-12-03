@@ -36,7 +36,7 @@ struct ContentView: View {
     @State var indicesToRemove: [Int] = []
     @State var rindicesToRemove: [Int] = []
 
-    
+        
     var body: some View {
         
         
@@ -192,7 +192,7 @@ struct ContentView: View {
 
                                                     }//remove
                                                     
-                                                    
+                                
 
                                                     
                                                 }//if date passed
@@ -354,16 +354,12 @@ struct ContentView: View {
                 Alert(
                     title: Text("Warning: a due date has passed."),
                     message: Text("'\(rassignmentPassedName)' has ended"),
-                    primaryButton: .default(Text("Extend due date")){
-                        data.timerOn = true
-                    },
-                    secondaryButton: .destructive(Text("Delete")){
-                        
-                        rdeleteAssignment = true
-                        data.timerOn = true
-               
-                    }//delete
-                    
+                    dismissButton: .destructive(Text("Delete"),
+                            action: {
+                             rdeleteAssignment = true
+                             data.timerOn = true
+                            })
+                   
                 )//alert
                 
             }//alert
@@ -374,19 +370,22 @@ struct ContentView: View {
                 title: Text("Warning: a due date has passed."),
                 message: Text("'\(assignmentPassedName)' has ended"),
                 primaryButton: .default(Text("Extend due date")){
+                    
                     data.timerOn = true
                 },
                 secondaryButton: .destructive(Text("Delete")){
                     
                     
                     deleteAssignment = true
-                    
                     data.timerOn = true
            
                 }//delete
             )//alert
             
         }//alert
+        
+        
+        NavigationLink("", destination: AssignmentsTab(), isActive: $editViewNav)
         
         
         
