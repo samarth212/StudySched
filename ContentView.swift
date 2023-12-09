@@ -32,7 +32,6 @@ struct ContentView: View {
     @State var bothTypesDue: Bool = false
     
     
-    
     @State var indicesToRemove: [Int] = []
     @State var rindicesToRemove: [Int] = []
 
@@ -385,7 +384,6 @@ struct ContentView: View {
         }//alert
         
         
-        NavigationLink("", destination: AssignmentsTab(), isActive: $editViewNav)
         
         
         
