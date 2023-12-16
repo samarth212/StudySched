@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+//make observable and add @app storage
 class MyData: ObservableObject{
     
     
