@@ -11,7 +11,7 @@ import Foundation
 //make observable and add @app storage
 //updated to xcode 15
 class MyData: ObservableObject{
-    
+     
     
 //Assignment stuff
 //-----------------------------------------------------------------------------------------------------------
