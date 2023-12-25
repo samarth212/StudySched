@@ -320,7 +320,7 @@ struct AssignmentsTab: View {
     func deleteRAssignment(indexSet: IndexSet){
         
             data.recurringDataList.remove(atOffsets: indexSet)
-            UserDefaults.standard.set(data.eventDataList, forKey: "recurringDataList")
+            UserDefaults.standard.set(data.recurringDataList, forKey: "recurringDataList")
             print(data.recurringDataList)
             
         

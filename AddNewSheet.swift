@@ -534,7 +534,7 @@ struct AddNewSheet: View {
                                     
                                     ]
                                     data.recurringDataList.append(data.recurringData)
-                                    UserDefaults.standard.set(data.eventDataList, forKey: "recurringDataList")
+                                    UserDefaults.standard.set(data.recurringDataList, forKey: "recurringDataList")
                                     print(data.recurringDataList)
                                     
                                     data.rName = ""

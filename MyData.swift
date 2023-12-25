@@ -63,7 +63,7 @@ class MyData: ObservableObject{
 //Conflict stuff
     
     @Published var conflictData: [String:[String:String]] = [:]
-    @Published var conflictDataList: [[String:[String:String]]] = []
+    @Published var conflictDataList = UserDefaults.standard.object(forKey: "conflictDataList") as? [[String:[String:String]]] ?? []
     
     @Published var conflictName: String = ""
     @Published var conflictStart = Date()

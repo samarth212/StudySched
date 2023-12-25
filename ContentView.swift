@@ -163,7 +163,7 @@ struct ContentView: View {
                                         }//looping through all matching and deleting all
                                         for j in rindicesToRemove.reversed(){
                                             data.recurringDataList.remove(at: j)
-                                            UserDefaults.standard.set(data.eventDataList, forKey: "recurringDataList")
+                                            UserDefaults.standard.set(data.recurringDataList, forKey: "recurringDataList")
                                             print(data.recurringDataList)
                                         }//looping through all matching and deleting all
                                         indicesToRemove = []
@@ -246,7 +246,7 @@ struct ContentView: View {
                                             }//loop
                                             if rdeleteAssignment{
                                                 data.recurringDataList.remove(at: rindexToRemove)
-                                                UserDefaults.standard.set(data.eventDataList, forKey: "recurringDataList")
+                                                UserDefaults.standard.set(data.recurringDataList, forKey: "recurringDataList")
                                                 print(data.recurringDataList)
                                                 rdeleteAssignment = false
                                                 rindexToRemove = -1
