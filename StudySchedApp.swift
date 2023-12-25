@@ -10,9 +10,12 @@ import BackgroundTasks
 
 @main
 struct StudySchedApp: App {
+    @StateObject var _data = MyData()
+    
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
+                .environmentObject(_data)
                 
                 
         }

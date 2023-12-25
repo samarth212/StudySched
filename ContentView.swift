@@ -12,8 +12,8 @@ import Foundation
 
 struct ContentView: View {
     
-    @ObservedObject var data = MyData()
-    
+    @EnvironmentObject var data: MyData
+
     let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     
     @State public var showAddAssignments: Bool = false
@@ -401,7 +401,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(MyData())
     }
 }
 

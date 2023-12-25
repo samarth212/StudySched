@@ -16,8 +16,7 @@ struct AssignmentsTab: View {
  
     
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var data = MyData()
-
+    @EnvironmentObject var data: MyData
 
     var body: some View {
 
@@ -340,6 +339,6 @@ struct AssignmentsTab: View {
 
 struct AssignmentsTab_Previews: PreviewProvider {
     static var previews: some View {
-        AssignmentsTab()
+        AssignmentsTab().environmentObject(MyData())
     }
 }

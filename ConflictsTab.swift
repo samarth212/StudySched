@@ -10,7 +10,7 @@ import SwiftUI
 struct ConflictsTab: View {
     
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var data = MyData()
+    @EnvironmentObject var data: MyData
 
     var body: some View {
         
@@ -145,6 +145,6 @@ struct ConflictsTab: View {
 
 struct ConflictsTab_Previews: PreviewProvider {
     static var previews: some View {
-        ConflictsTab()
+        ConflictsTab().environmentObject(MyData())
     }
 }

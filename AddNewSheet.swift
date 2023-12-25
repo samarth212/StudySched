@@ -61,7 +61,7 @@ class NotificationManager{
 struct AddNewSheet: View {
     
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var data = MyData()
+    @EnvironmentObject var data: MyData
     @State private var isRepeated: Bool = false
     @State private var showRepeatAlert: Bool = false
     @State private var showRecurring: Bool = false
@@ -859,7 +859,7 @@ struct AddNewSheet_Previews: PreviewProvider {
     
     
     static var previews: some View {
-        AddNewSheet()
+        AddNewSheet().environmentObject(MyData())
         //NewRecurringEvent().environmentObject(MyData())
     }
 }

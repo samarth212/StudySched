@@ -10,7 +10,7 @@ import SwiftUI
 struct RecurringSheet: View {
     
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var data = MyData()
+    @EnvironmentObject var data: MyData
     @State private var allowDone: Bool = false
     
     var body: some View {
@@ -143,6 +143,6 @@ struct RecurringSheet: View {
 
 struct RecurringSheet_Previews: PreviewProvider {
     static var previews: some View {
-        RecurringSheet()
+        RecurringSheet().environmentObject(MyData())
     }
 }
