@@ -30,7 +30,7 @@ class MyData: ObservableObject{
     @Published var eventRecurring: Bool = false
     
     @Published var recurringData: [String:[String:String]] = [:]
-    @Published var recurringDataList: [[String:[String:String]]] = []
+    @Published var recurringDataList = UserDefaults.standard.object(forKey: "recurringDataList") as? [[String:[String:String]]] ?? []
     
     @Published var rName: String = ""
     @Published var rDesc: String = ""
