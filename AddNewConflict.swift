@@ -105,6 +105,7 @@ struct AddNewConflict: View {
                                 ]
                                 
                                 data.conflictDataList.append(data.conflictData)
+                                UserDefaults.standard.set(data.conflictDataList, forKey: "conflictDataList")
                                 print(data.conflictDataList)
                                 
                                 data.conflictName = ""

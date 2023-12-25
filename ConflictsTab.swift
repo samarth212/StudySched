@@ -137,6 +137,7 @@ struct ConflictsTab: View {
     private func deleteConflict(indexSet: IndexSet){
         
         data.conflictDataList.remove(atOffsets: indexSet)
+        UserDefaults.standard.set(data.conflictDataList, forKey: "conflictDataList")
         print(data.conflictDataList)
         
     }//delete func

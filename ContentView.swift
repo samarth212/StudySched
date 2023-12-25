@@ -246,7 +246,7 @@ struct ContentView: View {
                                             }//loop
                                             if rdeleteAssignment{
                                                 data.recurringDataList.remove(at: rindexToRemove)
-                                                UserDefaults.standard.set(data.recurringDataList, forKey: "recurringDataList")
+                                                UserDefaults.standard.set(data.eventDataList, forKey: "recurringDataList")
                                                 print(data.recurringDataList)
                                                 rdeleteAssignment = false
                                                 rindexToRemove = -1
