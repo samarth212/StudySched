@@ -10,7 +10,7 @@ import SwiftUI
 struct AddNewConflict: View {
     
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var data: MyData
+    @ObservedObject var data = MyData()
     @State private var isRepeated: Bool = false
     @State private var showRepeatAlert: Bool = false
     
@@ -243,6 +243,6 @@ struct AddNewConflict: View {
 
 struct AddNewConflict_Previews: PreviewProvider {
     static var previews: some View {
-        AddNewConflict().environmentObject(MyData())
+        AddNewConflict()
     }
 }

@@ -11,8 +11,8 @@ import SwiftUI
 struct AssignmentInfo: View {
     
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var data: MyData
-    
+    @ObservedObject var data = MyData()
+
    
    
     
@@ -94,6 +94,6 @@ struct AssignmentInfo: View {
 
 struct AssignmentInfo_Previews: PreviewProvider {
     static var previews: some View {
-        AssignmentInfo().environmentObject(MyData())
+        AssignmentInfo()
     }
 }

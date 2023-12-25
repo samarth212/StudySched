@@ -11,8 +11,8 @@ struct RecurringInfo: View {
     
     
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var data: MyData
-    
+    @ObservedObject var data = MyData()
+
     
     var body: some View {
         
@@ -93,6 +93,6 @@ struct RecurringInfo: View {
 
 struct RecurringInfo_Previews: PreviewProvider {
     static var previews: some View {
-        RecurringInfo().environmentObject(MyData())
+        RecurringInfo()
     }
 }
