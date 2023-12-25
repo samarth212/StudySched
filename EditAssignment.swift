@@ -330,7 +330,8 @@ struct EditAssignment: View {
                            
                        
                             
-                            
+                            UserDefaults.standard.set(data.eventDataList, forKey: "eventDataList")
+
                             
                             print(data.eventDataList)
                             

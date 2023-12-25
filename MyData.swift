@@ -17,7 +17,7 @@ class MyData: ObservableObject{
 //Assignment stuff
 //-----------------------------------------------------------------------------------------------------------
     @Published var eventData: [String:[String:String]] = [:]
-    @Published var eventDataList: [[String:[String:String]]] = []
+    @Published var eventDataList = UserDefaults.standard.object(forKey: "eventDataList") as? [[String:[String:String]]] ?? []
     
     @Published var eventName: String = ""
     @Published var eventDesc: String = ""

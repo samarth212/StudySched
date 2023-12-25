@@ -654,6 +654,7 @@ struct AddNewSheet: View {
                                         
                                         //append that dictionary to the overall list of assignments
                                         data.eventDataList.append(data.eventData)
+                                        UserDefaults.standard.set(data.eventDataList, forKey: "eventDataList")
                                         print(data.eventDataList)
                                         
                                         

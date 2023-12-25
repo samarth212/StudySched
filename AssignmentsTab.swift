@@ -309,6 +309,7 @@ struct AssignmentsTab: View {
     func deleteAssignment(indexSet: IndexSet){
         
             data.eventDataList.remove(atOffsets: indexSet)
+            UserDefaults.standard.set(data.eventDataList, forKey: "eventDataList")
             print(data.eventDataList)
             
         

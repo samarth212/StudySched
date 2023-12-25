@@ -156,7 +156,9 @@ struct ContentView: View {
                                     if bothTypesDue{
                                         
                                         for i in indicesToRemove.reversed(){
+                                            
                                             data.eventDataList.remove(at: i)
+                                            UserDefaults.standard.set(data.eventDataList, forKey: "eventDataList")
                                             print(data.eventDataList)
                                         }//looping through all matching and deleting all
                                         for j in rindicesToRemove.reversed(){
@@ -203,8 +205,9 @@ struct ContentView: View {
                                               
                                                 
                                                 data.eventDataList.remove(at: indexToRemove)
-                                                
                                                 print(data.eventDataList)
+                                                UserDefaults.standard.set(data.eventDataList, forKey: "eventDataList")
+
                                                 deleteAssignment = false
                                                 indexToRemove = -1
                                                
