@@ -276,7 +276,7 @@ struct ContentView: View {
                     }//hstack title
                     .padding(.leading)
                     
-                      
+                       
                     
                     
                     
