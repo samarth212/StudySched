@@ -276,8 +276,18 @@ struct ContentView: View {
                     }//hstack title
                     .padding(.leading)
                     
-                       
+                    //Today
+                    HStack{
+                        Text("Today")
+                        Spacer()
+                    }//hstack today
+                    .padding(.leading)
+                    .padding(.top, 8)
+                    .font(.title)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.green)
                     
+                        
                     
                     
                     
@@ -396,7 +406,7 @@ struct ContentView: View {
         
         
     }//cv body
-    
+        
     
 }//contentview
 
