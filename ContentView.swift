@@ -35,6 +35,8 @@ struct ContentView: View {
     @State var indicesToRemove: [Int] = []
     @State var rindicesToRemove: [Int] = []
 
+    @State var eligibleEvents: [String:Date] = [:]
+
         
     var body: some View {
         
@@ -410,7 +412,7 @@ struct ContentView: View {
     
     func createList(){
         /*
-         ["name": "math", "desc": "10.2 hw", "diff":"4","type":"practice problems", "start":"December 27, 2023, at 10:00 AM", "end":"December 28, 2023, at 11:00 AM"]
+         [["data": ["name": "math", "desc": "10.2 hw", "diff":"4","type":"practice problems", "start":"December 27, 2023, at 10:00 AM", "end":"December 28, 2023, at 11:00 AM"]], ["data": ["name": "ela", "desc": "10.6 hw", "diff":"4","type":"practice problems", "start":"December 27, 2023, at 8:00 PM", "end":"December 28, 2023, at 11:00 AM"]]]
          */
         
     }//function to create the list where the app displays
@@ -429,14 +431,19 @@ struct ContentView: View {
             let calendar = Calendar.current
             let midnightDate = calendar.startOfDay(for: dateFormatter.date(from: dateStr) ?? Date())
             
-            var eligibleEvents: [String:Date] = [:]
             if Date() >= midnightDate{
+                if (Date() + (86400*14)) >= dateFormatter.date(from: data.eventDataList[i]["data"]!["end"] ?? "\(Date() + 86400)") ?? (Date() + 86400){
+                    
+                    eligibleEvents[data.eventDataList[i]["data"]!["name"] ?? "NAME#?"] = dateFormatter.date(from: data.eventDataList[i]["data"]!["end"] ?? "\(Date() + 86400)") ?? Date() + 86400
+                    
+                }//if assignment isn't due until too long
                 
                 
                 
             }//if the assignment has started yet or will start on that day
             
         }//loop through list
+        print(eligibleEvents)
         
     }//function to order assignments based on dates
     
