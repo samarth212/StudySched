@@ -36,6 +36,7 @@ struct ContentView: View {
     @State var rindicesToRemove: [Int] = []
 
     @State var eligibleEvents: [String:Date] = [:]
+    @State var testArray: [String:Date] = ["Math":Date()+86400, "Ela":Date()+90000]
 
         
     var body: some View {
@@ -288,10 +289,24 @@ struct ContentView: View {
                     .font(.title)
                     .fontWeight(.medium)
                     .foregroundStyle(.green)
+                    .onAppear {
+                        orderDate()
+                    }//perform the algorithm
                     
-                        
+                     
+                    
                     //ForEach loop, loop through an array of today's assignments
-                    
+                    List{
+                        
+                        /*Array(eligibleEvents.keys )*/
+                        ForEach(Array(testArray.keys), id:\.self){ name in
+                            
+                            Text(name)
+                            
+                        }//looping through today's list
+                        
+                    }//list with all the assignments
+                 
                     
                     
                     
@@ -410,15 +425,16 @@ struct ContentView: View {
         
     }//cv body
     
-    func createList(){
         /*
          [["data": ["name": "math", "desc": "10.2 hw", "diff":"4","type":"practice problems", "start":"December 27, 2023, at 10:00 AM", "end":"December 28, 2023, at 11:00 AM"]], ["data": ["name": "ela", "desc": "10.6 hw", "diff":"4","type":"practice problems", "start":"December 27, 2023, at 8:00 PM", "end":"December 28, 2023, at 11:00 AM"]]]
          */
         
-    }//function to create the list where the app displays
     
     
     func orderDate(){
+        
+        //reset today's list
+        eligibleEvents = [:]
         
         
         for i in data.eventDataList.indices{
@@ -437,21 +453,15 @@ struct ContentView: View {
                     eligibleEvents[data.eventDataList[i]["data"]!["name"] ?? "NAME#?"] = dateFormatter.date(from: data.eventDataList[i]["data"]!["end"] ?? "\(Date() + 86400)") ?? Date() + 86400
                     
                 }//if assignment isn't due until too long
-                
-                
-                
             }//if the assignment has started yet or will start on that day
             
+            
         }//loop through list
-        print(eligibleEvents)
+        
         
     }//function to order assignments based on dates
     
-    
-    
-    func orderDiff(){
-        
-    }//function to order assignments based on difficulty - based off of the date function
+
 }//contentview
 
 
