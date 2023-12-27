@@ -116,7 +116,7 @@ struct ContentView: View {
                                 
                                 if data.timerOn{
                                     let dateFormatter = DateFormatter()
-                                     dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
+                                    dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
                                                                         
                                     if !data.eventDataList.isEmpty && !data.recurringDataList.isEmpty{
                                         for i in data.eventDataList.indices{
@@ -288,6 +288,7 @@ struct ContentView: View {
                     .foregroundStyle(.green)
                     
                         
+                    //ForEach loop, loop through an array of today's assignments
                     
                     
                     
@@ -406,8 +407,44 @@ struct ContentView: View {
         
         
     }//cv body
-        
     
+    func createList(){
+        /*
+         ["name": "math", "desc": "10.2 hw", "diff":"4","type":"practice problems", "start":"December 27, 2023, at 10:00 AM", "end":"December 28, 2023, at 11:00 AM"]
+         */
+        
+    }//function to create the list where the app displays
+    
+    
+    func orderDate(){
+        
+        
+        for i in data.eventDataList.indices{
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
+            
+            let dateStr = data.eventDataList[i]["data"]!["start"] ?? "\(Date())"
+
+            let calendar = Calendar.current
+            let midnightDate = calendar.startOfDay(for: dateFormatter.date(from: dateStr) ?? Date())
+            
+            var eligibleEvents: [String:Date] = [:]
+            if Date() >= midnightDate{
+                
+                
+                
+            }//if the assignment has started yet or will start on that day
+            
+        }//loop through list
+        
+    }//function to order assignments based on dates
+    
+    
+    
+    func orderDiff(){
+        
+    }//function to order assignments based on difficulty - based off of the date function
 }//contentview
 
 
