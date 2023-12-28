@@ -35,12 +35,13 @@ struct ContentView: View {
     @State var indicesToRemove: [Int] = []
     @State var rindicesToRemove: [Int] = []
 
-    @State var eligibleEvents: [String:Date] = [:]
+    @State var eligibleEvents: [String:(Date, String)] = [:]
     @State var testArray: [String:(Date, String)] = ["Math":(Date()+86400, "2"), "Ela":(Date()+90000, "3"), "Science": (Date()+80000, "5")]
         
     var body: some View {
         
         @State var testArray2 = Array(testArray.keys)
+        @State var todayList = Array(eligibleEvents.keys)
 
         NavigationView{
             //zstack for main home view
@@ -299,9 +300,9 @@ struct ContentView: View {
                     List{
                         
                         /*Array(eligibleEvents.keys )*/
-                        ForEach(Array(testArray.keys), id:\.self){ name in
+                        ForEach(Array(eligibleEvents.keys), id:\.self){ name in
                             
-                            if let values = testArray[name] {
+                            if let values = eligibleEvents[name] {
                                 HStack {
                                     
                                     if values.1 == "1"{
@@ -336,7 +337,7 @@ struct ContentView: View {
                             
                         }//looping through today's list
                         .onDelete(perform: { indexSet in
-                            testArray2.remove(atOffsets: indexSet)
+                            todayList.remove(atOffsets: indexSet)
                         })
                         
                         
@@ -496,7 +497,7 @@ struct ContentView: View {
             if Date() >= midnightDate{
                 if (Date() + (86400*14)) >= dateFormatter.date(from: data.eventDataList[i]["data"]!["end"] ?? "\(Date() + 86400)") ?? (Date() + 86400){
                     
-                    eligibleEvents[data.eventDataList[i]["data"]!["name"] ?? "NAME#?"] = dateFormatter.date(from: data.eventDataList[i]["data"]!["end"] ?? "\(Date() + 86400)") ?? Date() + 86400
+                    eligibleEvents[data.eventDataList[i]["data"]!["name"] ?? "NAME#?"] = (dateFormatter.date(from: data.eventDataList[i]["data"]!["end"] ?? "\(Date() + 86400)") ?? Date() + 86400, data.eventDataList[i]["data"]!["diff"] ?? "3")
                     
                 }//if assignment isn't due until too long
             }//if the assignment has started yet or will start on that day
