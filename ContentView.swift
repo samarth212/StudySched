@@ -36,12 +36,12 @@ struct ContentView: View {
     @State var rindicesToRemove: [Int] = []
 
     @State var eligibleEvents: [String:Date] = [:]
-    @State var testArray: [String:Date] = ["Math":Date()+86400, "Ela":Date()+90000]
-
+    @State var testArray: [String:(Date, String)] = ["Math":(Date()+86400, "2"), "Ela":(Date()+90000, "3"), "Science": (Date()+80000, "5")]
         
     var body: some View {
         
-        
+        @State var testArray2 = Array(testArray.keys)
+
         NavigationView{
             //zstack for main home view
             ZStack{
@@ -301,11 +301,49 @@ struct ContentView: View {
                         /*Array(eligibleEvents.keys )*/
                         ForEach(Array(testArray.keys), id:\.self){ name in
                             
-                            Text(name)
+                            if let values = testArray[name] {
+                                HStack {
+                                    
+                                    if values.1 == "1"{
+                                        Image(systemName: "circle.fill")
+                                            .foregroundColor(Color(hue: 0.3, saturation: 0.993, brightness: 1.0))
+                                    } else if values.1 == "2"{
+                                        Image(systemName: "circle.fill")
+                                            .foregroundStyle(.green)
+                                    } else if values.1 == "3"{
+                                        Image(systemName: "circle.fill")
+                                            .foregroundStyle(.yellow)
+                                    } else if values.1 == "4"{
+                                        Image(systemName: "circle.fill")
+                                            .foregroundStyle(.orange)
+                                    } else if values.1 == "5"{
+                                        Image(systemName: "circle.fill")
+                                            .foregroundStyle(.red)
+                                    }//diffculty indicators
+                                    
+                                    
+                                    Text(name)
+                                        .fontWeight(.semibold)
+                                        .padding(.trailing, 15)
+                                    Text("Due: \(values.0, formatter: itemFormatter)")
+                                    
+                                    
+                                    
+                                }//hstack
+                            }//coalesing
+                            
+
                             
                         }//looping through today's list
+                        .onDelete(perform: { indexSet in
+                            testArray2.remove(atOffsets: indexSet)
+                        })
+                        
                         
                     }//list with all the assignments
+                    .listStyle(PlainListStyle())
+                    
+                    
                  
                     
                     
@@ -424,6 +462,14 @@ struct ContentView: View {
         
         
     }//cv body
+    
+    let itemFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .short
+            formatter.timeStyle = .short
+            return formatter
+    }()//date formatter for today list
+    
     
         /*
          [["data": ["name": "math", "desc": "10.2 hw", "diff":"4","type":"practice problems", "start":"December 27, 2023, at 10:00 AM", "end":"December 28, 2023, at 11:00 AM"]], ["data": ["name": "ela", "desc": "10.6 hw", "diff":"4","type":"practice problems", "start":"December 27, 2023, at 8:00 PM", "end":"December 28, 2023, at 11:00 AM"]]]
