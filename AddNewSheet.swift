@@ -366,6 +366,23 @@ struct AddNewSheet: View {
                     //Type prompt
                     Text("Select Assignment Type")
                     Menu{
+                        
+                        Button {
+                            if data.eventRecurring{
+                                data.rType = "Other"
+                                data.rTypeDone = true
+                            }
+                            else{
+                                data.eventType = "Other"
+                                data.typeDone = true
+                                
+                            }
+                            
+                        } label: {
+                            Text("Other")
+                        }//diff 5
+                        
+
                         Button {
                             if data.eventRecurring{
                                 data.rType = "Practice Problems"
@@ -441,6 +458,8 @@ struct AddNewSheet: View {
                         } label: {
                             Text("Project")
                         }//diff 5
+                        
+                        
 
                     } label: {
                         Label(
@@ -695,6 +714,10 @@ struct AddNewSheet: View {
                                     data.showEndTime = false
                                     data.rshowEndTime = false
                                     data.timerOn = true
+                                    
+                                    data.isChanged = true
+                                    UserDefaults.standard.set(data.isChanged, forKey: "isChanged")
+
                                     dismiss()
 
                                     
