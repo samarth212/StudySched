@@ -714,10 +714,6 @@ struct AddNewSheet: View {
                                     data.showEndTime = false
                                     data.rshowEndTime = false
                                     data.timerOn = true
-                                    
-                                    data.isChanged = true
-                                    UserDefaults.standard.set(data.isChanged, forKey: "isChanged")
-
                                     dismiss()
 
                                     

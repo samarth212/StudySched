@@ -291,9 +291,7 @@ struct ContentView: View {
                     .fontWeight(.medium)
                     .foregroundStyle(.green)
                     .onAppear {
-                        if data.isChanged{
-                            orderDate()
-                        }//when to run the algorithm 
+                       orderDate()
                     }//perform the algorithm
                     
                      
@@ -338,12 +336,7 @@ struct ContentView: View {
 
                             
                         }//looping through today's list
-                        .onDelete(perform: { indexSet in
-                            todayList.remove(atOffsets: indexSet)
-                            data.isChanged = true
-                            UserDefaults.standard.set(data.isChanged, forKey: "isChanged")
-                        })
-                        
+                                                
                         
                     }//list with all the assignments
                     .listStyle(PlainListStyle())

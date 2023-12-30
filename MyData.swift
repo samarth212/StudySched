@@ -85,7 +85,7 @@ class MyData: ObservableObject{
 
 //Algorithm stuff
     
-    @Published var isChanged = UserDefaults.standard.object(forKey: "isChanged") as? Bool ?? false
+
     
     
     
