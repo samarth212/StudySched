@@ -71,6 +71,8 @@ struct AddNewSheet: View {
     @State private var isConflicted: Bool = false
     @State private var showConflictAlert: Bool = false
     
+    @State private var tutorial: Bool = false
+    
     var body: some View {
         
         
@@ -91,13 +93,17 @@ struct AddNewSheet: View {
                             NotificationManager.instance.requestAuthorization()
                         }//on appear
                     Button {
-                        print("tutorial")
+                        tutorial.toggle()
                     } label: {
                         Image(systemName: "questionmark.circle.fill")
                             .foregroundColor(.blue)
                             .font(.title2)
                             .padding(.leading, 5)
                     }//label for questionmark
+                    .sheet(isPresented: $tutorial, content: {
+                        NewAssignmentTutorial()
+                            .presentationDetents([.fraction(0.55)])
+                    })
 
                     Spacer()
                     

@@ -504,22 +504,6 @@ struct ContentView: View {
             
         }//loop through list
         
-        for i in data.recurringDataList.indices{
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEEE, MMMM dd, yyyy 'at' h:mm a"
-            
-            let startDateStr = data.recurringDataList[i]["data"]!["startdate"] ?? "\(Date())"
-            let endDateStr = data.recurringDataList[i]["data"]!["enddate"] ?? "\(Date() + (86400*14))"
-
-            let startDate = dateFormatter.date(from: endDateStr) ?? Date()
-            
-            if Date() >= startDate{
-                
-                
-            }//if assignment isnt due until too long
-            
-        }//loop through recurring list
-        
         
     }//function to order assignments based on dates
     

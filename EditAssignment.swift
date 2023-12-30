@@ -13,7 +13,7 @@ struct EditAssignment: View {
     @EnvironmentObject var data: MyData
     @State private var isRepeated: Bool = false
     @State private var showRepeatAlert: Bool = false
-    
+    @State private var tutorial: Bool = false
    
    
     var body: some View {
@@ -31,13 +31,17 @@ struct EditAssignment: View {
                         .fontWeight(.semibold)
                         .padding(.leading, 10)
                     Button {
-                        print("tutorial")
+                        tutorial.toggle()
                     } label: {
                         Image(systemName: "questionmark.circle.fill")
                             .foregroundColor(.blue)
                             .font(.title2)
                             .padding(.leading, 5)
                     }//label for questionmark
+                    .sheet(isPresented: $tutorial, content: {
+                        EditTutorial()
+                            .presentationDetents([.fraction(0.3)])
+                    })
 
                     Spacer()
                     

@@ -11,6 +11,7 @@ struct ConflictsTab: View {
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var data: MyData
+    @State private var tutorial: Bool = false
 
     var body: some View {
         
@@ -93,12 +94,16 @@ struct ConflictsTab: View {
                     
                     //TUTORIAL BUTTON
                     Button {
-                        print("tutorial")
+                        tutorial.toggle()
                     } label: {
                         Image(systemName: "questionmark.circle.fill")
                             .foregroundColor(.orange)
                             .font(.title2)
                     }//tutorial button
+                    .sheet(isPresented: $tutorial, content: {
+                        ConflictsTutorial()
+                            .presentationDetents([.fraction(0.3)])
+                    })
                     
                     
                     

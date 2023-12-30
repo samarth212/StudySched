@@ -13,7 +13,7 @@ struct AddNewConflict: View {
     @EnvironmentObject var data: MyData
     @State private var isRepeated: Bool = false
     @State private var showRepeatAlert: Bool = false
-    
+    @State private var tutorial: Bool = false
     
     var body: some View {
         
@@ -32,7 +32,7 @@ struct AddNewConflict: View {
                         .fontWeight(.semibold)
                     
                     Button{
-                        print("tutorial")
+                        tutorial.toggle()
                         
                         
                     } label: {
@@ -42,6 +42,10 @@ struct AddNewConflict: View {
                             .padding(.leading, 5)
                     
                     }//button
+                    .sheet(isPresented: $tutorial, content: {
+                        NewConflictTutorial()
+                            .presentationDetents([.fraction(0.55)])
+                    })
                     
                     
                     Spacer()

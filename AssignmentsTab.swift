@@ -14,6 +14,7 @@ struct AssignmentsTab: View {
     
     @State var showRInfo: Bool = false
  
+    @State private var tutorial: Bool = false
     
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var data: MyData
@@ -248,14 +249,16 @@ struct AssignmentsTab: View {
                     
                     //TUTORIAL BUTTON
                     Button {
-                        print("tutorial")
+                        tutorial.toggle()
                     } label: {
                         Image(systemName: "questionmark.circle.fill")
                             .foregroundColor(.blue)
                             .font(.title2)
                     }//tutorial button
-                    
-                    
+                    .sheet(isPresented: $tutorial) {
+                        AssignmentsTutorial()
+                            .presentationDetents([.fraction(0.55)])
+                    }
                     
                     Spacer()
                     
