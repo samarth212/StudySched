@@ -313,7 +313,7 @@ struct AssignmentsTab: View {
         
             data.eventDataList.remove(atOffsets: indexSet)
             UserDefaults.standard.set(data.eventDataList, forKey: "eventDataList")
-            print(data.eventDataList)
+            //print(data.eventDataList)
             
         
     
@@ -324,7 +324,7 @@ struct AssignmentsTab: View {
         
             data.recurringDataList.remove(atOffsets: indexSet)
             UserDefaults.standard.set(data.recurringDataList, forKey: "recurringDataList")
-            print(data.recurringDataList)
+            //print(data.recurringDataList)
             
         
     

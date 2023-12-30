@@ -145,7 +145,7 @@ struct ContentView: View {
                                                         rindicesToRemove.append(j)
                                                     }//checking for no double indexing
                                                     
-                                                    print(indicesToRemove, rindicesToRemove)
+                                                    //print(indicesToRemove, rindicesToRemove)
                                                 }//if match in dates
                                                 
                                             }//looping through the dates of the recurrings
@@ -165,12 +165,12 @@ struct ContentView: View {
                                             
                                             data.eventDataList.remove(at: i)
                                             UserDefaults.standard.set(data.eventDataList, forKey: "eventDataList")
-                                            print(data.eventDataList)
+                                            //print(data.eventDataList)
                                         }//looping through all matching and deleting all
                                         for j in rindicesToRemove.reversed(){
                                             data.recurringDataList.remove(at: j)
                                             UserDefaults.standard.set(data.recurringDataList, forKey: "recurringDataList")
-                                            print(data.recurringDataList)
+                                            //print(data.recurringDataList)
                                         }//looping through all matching and deleting all
                                         indicesToRemove = []
                                         rindicesToRemove = []
@@ -179,7 +179,7 @@ struct ContentView: View {
                                     else{
                                         if !data.eventDataList.isEmpty{
                                             
-                                            print("showAdd: \(showAddAssignments), alert: \(data.showEndTime)")
+                                            //print("showAdd: \(showAddAssignments), alert: \(data.showEndTime)")
 
                                             for index in data.eventDataList.indices{
                                                 
@@ -212,7 +212,7 @@ struct ContentView: View {
                                               
                                                 
                                                 data.eventDataList.remove(at: indexToRemove)
-                                                print(data.eventDataList)
+                                                //print(data.eventDataList)
                                                 UserDefaults.standard.set(data.eventDataList, forKey: "eventDataList")
 
                                                 deleteAssignment = false
@@ -253,7 +253,7 @@ struct ContentView: View {
                                             if rdeleteAssignment{
                                                 data.recurringDataList.remove(at: rindexToRemove)
                                                 UserDefaults.standard.set(data.eventDataList, forKey: "recurringDataList")
-                                                print(data.recurringDataList)
+                                                //print(data.recurringDataList)
                                                 rdeleteAssignment = false
                                                 rindexToRemove = -1
                                             }//if deleting recurring

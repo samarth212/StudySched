@@ -337,7 +337,7 @@ struct EditAssignment: View {
                             UserDefaults.standard.set(data.eventDataList, forKey: "eventDataList")
 
                             
-                            print(data.eventDataList)
+                            //print(data.eventDataList)
                             
                             
                             //clear up values for next iteration

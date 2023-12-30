@@ -31,7 +31,7 @@ class NotificationManager{
         let year = components.year
         let hour = components.hour
         let minute = components.minute
-        print(month!, day!, year!, hour!, minute!)
+        //print(month!, day!, year!, hour!, minute!)
         
         var dateComponents = DateComponents()
         dateComponents.month = month
@@ -560,7 +560,7 @@ struct AddNewSheet: View {
                                     ]
                                     data.recurringDataList.append(data.recurringData)
                                     UserDefaults.standard.set(data.recurringDataList, forKey: "recurringDataList")
-                                    print(data.recurringDataList)
+                                    //print(data.recurringDataList)
                                     
                                     data.rName = ""
                                     data.rDesc = ""
@@ -681,7 +681,7 @@ struct AddNewSheet: View {
                                         //append that dictionary to the overall list of assignments
                                         data.eventDataList.append(data.eventData)
                                         UserDefaults.standard.set(data.eventDataList, forKey: "eventDataList")
-                                        print(data.eventDataList)
+                                        //print(data.eventDataList)
                                         
                                         
                                         //schedule notification
