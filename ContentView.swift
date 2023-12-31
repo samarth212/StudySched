@@ -83,7 +83,7 @@ struct ContentView: View {
                         Button {
                        
                             showAddConflicts.toggle()
-                            
+                             
                         } label: {
                             
                             HStack(spacing:3){
